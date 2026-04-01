@@ -1,0 +1,136 @@
+.upload-page-shell {
+  min-height: 100vh;
+  padding: 36px 24px;
+  background: #f9fafb;
+}
+
+.upload-card {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.upload-card h2 {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
+
+.upload-card p {
+  margin: 0 0 24px;
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.upload-info {
+  margin-bottom: 24px;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+}
+
+.file-input-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 260px;
+  padding: 14px 18px;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 9999px;
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.file-input-label input {
+  display: none;
+}
+
+.preview-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  margin-bottom: 24px;
+}
+
+.preview-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.preview-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.existing-images-section h3 {
+  margin: 0 0 12px;
+  font-size: 1.1rem;
+}
+
+.upload-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.alert-error {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 9999px;
+  padding: 12px 18px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-back-page.smaller {
+  background: transparent;
+  border: none;
+  color: #2563eb;
+  padding: 0;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-back-page.smaller:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 680px) {
+  .upload-card {
+    padding: 24px;
+  }
+
+  .preview-item img {
+    height: 140px;
+  }
+}

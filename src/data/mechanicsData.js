@@ -1,0 +1,103 @@
+const mechanics = [
+  {
+    id: 1,
+    name: "John Mechanic",
+    rating: 4.8,
+    reviews: 245,
+    distance: "2.3 km away",
+    services: ["Oil Change", "Brake Service", "Engine Repair"],
+    availability: "Available now",
+    image: "🔧",
+    lat: 12.9716,
+    lng: 77.5946,
+    address: "123 Engine Lane, Auto City",
+    description:
+      "Expert mechanic for engine tuning, brake repairs, and routine service.",
+    images: [
+      "https://images.unsplash.com/photo-1518173946682-0f53d1090c2a?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80",
+    ],
+  },
+  {
+    id: 2,
+    name: "Sarah Auto Care",
+    rating: 4.9,
+    reviews: 312,
+    distance: "3.1 km away",
+    services: ["Transmission", "Suspension", "General Service"],
+    availability: "Available now",
+    image: "🛠️",
+    lat: 12.9352,
+    lng: 77.6245,
+    address: "456 Service Drive, Motor Town",
+    description:
+      "Full-service auto care with transmission specialists and premium customer support.",
+    images: [
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80",
+    ],
+  },
+  {
+    id: 3,
+    name: "Mike's Auto Shop",
+    rating: 4.7,
+    reviews: 189,
+    distance: "1.8 km away",
+    services: ["Electrical", "AC Service", "Tire Change"],
+    availability: "Available in 15 min",
+    image: "⚙️",
+    lat: 12.9538,
+    lng: 77.4909,
+    address: "789 Repair Road, Gear District",
+    description:
+      "Reliable auto shop specializing in electrical repairs, AC service, and tires.",
+    images: [
+      "https://images.unsplash.com/photo-1511456131392-5b363df8e614?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
+    ],
+  },
+  {
+    id: 4,
+    name: "MEERA AUTOMOBILE & SERVICE CARE",
+    rating: 4.7,
+    reviews: 162,
+    distance: "2.8 km away",
+    services: ["AC Repair", "Wheel Alignment", "Battery Check", "Body Work"],
+    availability: "Available now",
+    image: "🏁",
+    lat: 22.293969,
+    lng: 73.2939671,
+    address: "MEERA AUTOMOBILE & SERVICE CARE, Indore, Madhya Pradesh",
+    description:
+      "Premium workshop with modern equipment, trusted technicians, and transparent pricing.",
+    googleMapsUrl: "https://maps.app.goo.gl/7Ls2NgPtv6rzLPr88",
+    images: [
+      "https://images.unsplash.com/photo-1511919884226-0e2624d74f99?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1517949908110-7192e69c10a4?auto=format&fit=crop&w=900&q=80",
+    ],
+  },
+  {
+    id: 5,
+    name: "Bikes and Bolts",
+    rating: 4.6,
+    reviews: 124,
+    distance: "3.5 km away",
+    services: ["Bike Repair", "Chain Service", "Brake Tune", "Oil Change", "Battery Check"],
+    availability: "Available now",
+    image: "🚲",
+    lat: 22.288498,
+    lng: 73.3396974,
+    address: "Bikes and Bolts, Indore, Madhya Pradesh",
+    description:
+      "Trusted bike repair shop offering quick diagnostics, parts, and service for daily commuters.",
+    googleMapsUrl: "https://maps.app.goo.gl/3TTFgeSbvQiCccEX7",
+    images: [
+      "https://images.unsplash.com/photo-1512872016327-7cca0aa5092a?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
+    ],
+  },
+];
+
+export default mechanics;
