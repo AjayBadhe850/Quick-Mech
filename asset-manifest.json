@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Quick-Mech/static/css/main.16894eae.css",
+    "main.js": "/Quick-Mech/static/js/main.907c328e.js",
+    "index.html": "/Quick-Mech/index.html",
+    "main.16894eae.css.map": "/Quick-Mech/static/css/main.16894eae.css.map",
+    "main.907c328e.js.map": "/Quick-Mech/static/js/main.907c328e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16894eae.css",
+    "static/js/main.907c328e.js"
+  ]
+}
