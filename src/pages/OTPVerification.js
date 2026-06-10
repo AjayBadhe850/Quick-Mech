@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './OTPVerification.css';
 
-
 const OTPVerification = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -12,7 +11,7 @@ const OTPVerification = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
 
   useEffect(() => {
     if (location.state?.mobileNumber) {

@@ -43,7 +43,7 @@ function App() {
         element={isLoggedIn ? <Referral /> : <Navigate to="/" replace />}
       />
 
-      {/* ✅ ADD BOOK ROUTE HERE */}
+      
       <Route
         path="/book"
         element={isLoggedIn ? <Booking /> : <Navigate to="/" replace />}

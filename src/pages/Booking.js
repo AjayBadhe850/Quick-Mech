@@ -8,7 +8,7 @@ function Booking() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Get mechanic data from Dashboard
+  
   const mechanic = location.state?.mechanic;
 
   const [date, setDate] = useState("");
@@ -69,7 +69,7 @@ function Booking() {
       <div className="booking-card">
         <h2 className="booking-title">Booking Page</h2>
 
-        {/* Mechanic Info */}
+        
         {mechanic ? (
           <div className="mechanic-info-box">
             <h3>{mechanic.name}</h3>
@@ -80,7 +80,7 @@ function Booking() {
           <p>No mechanic selected</p>
         )}
 
-        {/* Booking Form */}
+        
         {!confirmed ? (
           <div className="booking-form">
             <label>Select Date:</label>

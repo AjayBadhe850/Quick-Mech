@@ -26,7 +26,7 @@ const Referral = ({ userName }) => {
 
   return (
     <div className="referral-container">
-      {/* Header */}
+      
       <header className="referral-header">
         <div className="referral-header-content">
           <h1>Referral Program</h1>
@@ -34,9 +34,9 @@ const Referral = ({ userName }) => {
         </div>
       </header>
 
-      {/* Main Content */}
+      
       <main className="referral-main">
-        {/* Hero Section */}
+        
         <section className="referral-hero">
           <div className="hero-content">
             <div className="hero-text">
@@ -53,7 +53,7 @@ const Referral = ({ userName }) => {
           </div>
         </section>
 
-        {/* Referral Code Section */}
+        
         <section className="referral-code-section">
           <h3>Your Referral Code</h3>
           <div className="referral-code-box">
@@ -68,7 +68,7 @@ const Referral = ({ userName }) => {
           <p className="code-instruction">Share this code with your friends. They'll get ₹100 off on first booking!</p>
         </section>
 
-        {/* Stats Section */}
+        
         <section className="referral-stats">
           <h3>Your Referral Stats</h3>
           <div className="stats-grid">
@@ -82,7 +82,7 @@ const Referral = ({ userName }) => {
           </div>
         </section>
 
-        {/* How It Works */}
+        
         <section className="how-it-works">
           <h3>How It Works</h3>
           <div className="steps-grid">
@@ -109,7 +109,7 @@ const Referral = ({ userName }) => {
           </div>
         </section>
 
-        {/* Referral History */}
+        
         <section className="referral-history">
           <h3>Recent Referrals</h3>
           <div className="referral-table">
@@ -140,7 +140,7 @@ const Referral = ({ userName }) => {
           </div>
         </section>
 
-        {/* CTA Section */}
+        
         <section className="referral-cta">
           <h3>Ready to Earn?</h3>
           <p>Invite your friends now and start earning rewards!</p>

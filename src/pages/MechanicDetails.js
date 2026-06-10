@@ -36,10 +36,13 @@ function MechanicDetails() {
 
   const mechanicFromState = location.state?.mechanic;
   const userLocation = location.state?.userLocation;
+  const savedMechanics =
+    JSON.parse(localStorage.getItem('adminMechanics') || 'null') || mechanics;
   const mechanic =
-    mechanicFromState || mechanics.find((item) => item.id === Number(id));
+    mechanicFromState || savedMechanics.find((item) => item.id === Number(id));
 
   const [backendImages, setBackendImages] = useState([]);
+  const [routeInfo, setRouteInfo] = useState(null);
 
   useEffect(() => {
     const fetchMechanicImages = async () => {
@@ -58,6 +61,40 @@ function MechanicDetails() {
     fetchMechanicImages();
   }, [mechanic]);
 
+  useEffect(() => {
+    if (!userLocation || !mechanic) {
+      setRouteInfo(null);
+      return;
+    }
+
+    let active = true;
+    const fetchRoute = async () => {
+      try {
+        const origin = `${userLocation.lng},${userLocation.lat}`;
+        const destination = `${mechanic.lng},${mechanic.lat}`;
+        const url = `https://router.project-osrm.org/route/v1/driving/${origin};${destination}?overview=false`;
+        const response = await fetch(url);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (data.code !== "Ok" || !data.routes?.[0]) return;
+        const route = data.routes[0];
+        if (!active) return;
+        setRouteInfo({
+          distance: +(route.distance / 1000).toFixed(1),
+          duration: Math.max(5, Math.round(route.duration / 60)),
+        });
+      } catch (error) {
+        console.warn('OSRM route lookup failed:', error);
+      }
+    };
+
+    fetchRoute();
+
+    return () => {
+      active = false;
+    };
+  }, [userLocation, mechanic]);
+
   if (!mechanic) {
     return (
       <div className="page-shell">
@@ -73,16 +110,21 @@ function MechanicDetails() {
   const storedImages = mechanic?.id ? loadStoredMechanicImages(mechanic.id) : [];
   const galleryImages = [...new Set([...(mechanic.images || []), ...storedImages, ...backendImages])];
 
-  const travelDistance = userLocation
+  const travelDistance = routeInfo?.distance ?? (userLocation
     ? getDistanceFromLatLonInKm(
         userLocation.lat,
         userLocation.lng,
         mechanic.lat,
         mechanic.lng
       )
-    : null;
+    : null);
 
   const openNavigation = () => {
+    if (mechanic.googleMapsUrl) {
+      window.open(mechanic.googleMapsUrl, "_blank");
+      return;
+    }
+
     if (!userLocation) {
       alert("Please fetch your current location from the dashboard first.");
       return;
@@ -105,6 +147,11 @@ function MechanicDetails() {
           <div>
             <h2>{mechanic.name}</h2>
             <p className="mechanic-address">{mechanic.address}</p>
+            <p className="mechanic-contact">
+              <strong>Contact:</strong>{' '}
+              {mechanic.contactPerson || mechanic.name}
+              {mechanic.contactNumber ? ` • ${mechanic.contactNumber}` : ''}
+            </p>
             <p className="mechanic-description">{mechanic.description}</p>
           </div>
         </div>

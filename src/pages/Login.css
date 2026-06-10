@@ -5,7 +5,7 @@
   background: #ffffff;
 }
 
-/* Left Section */
+
 .login-left {
   position: relative;
   flex: 1;
@@ -142,7 +142,7 @@
   animation: fadeIn 1s ease 0.8s both;
 }
 
-/* Right Section */
+
 .login-right {
   position: relative;
   flex: 1;
@@ -262,7 +262,7 @@
   color: #2b2b2b;
 }
 
-/* Form Styles */
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -436,7 +436,7 @@
   margin-top: -4px;
 }
 
-/* Buttons */
+
 .btn-otp {
   padding: 13px 24px;
   background: #000000;
@@ -478,7 +478,7 @@
   color: #333;
 }
 
-/* Responsive Design */
+
 @media (max-width: 968px) {
   .login-container {
     flex-direction: column;

@@ -16,12 +16,12 @@ const Login = () => {
 
   const navigate = useNavigate();
   const API_BASE_URL =
-    process.env.REACT_APP_API_URL || "http://localhost:5000";
+    process.env.REACT_APP_API_URL || "http://localhost:5001";
   const displayName = username.trim() || "User";
   const ADMIN_USERNAME = "Ajay_Badhe";
   const ADMIN_PASSWORD_OR_OTP = "7396230359";
 
-  // 🔐 SEND OTP ONLY
+  
   const handleGetOTP = async (e) => {
     e.preventDefault();
     setError("");
@@ -67,7 +67,7 @@ const Login = () => {
         setIsFlipped(true);
         setAttemptsRemaining(5);
         setOtp(['', '', '', '', '', '']);
-        console.log("DEV OTP:", data.devOtp); // dev only
+        console.log("DEV OTP:", data.devOtp); 
       } else {
         setError(data.message || "Failed to send OTP");
       }
@@ -206,7 +206,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      {/* LEFT SIDE */}
+      
       <div className="login-left">
         <div className="login-content">
           <div className="login-heading-svg-wrapper">
@@ -222,7 +222,7 @@ const Login = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE */}
+      
       <div className="login-right">
         <div className="login-card">
           <h2 className="brand-title">QuickMech</h2>

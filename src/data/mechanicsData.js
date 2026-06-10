@@ -13,6 +13,12 @@ const mechanics = [
     address: "123 Engine Lane, Auto City",
     description:
       "Expert mechanic for engine tuning, brake repairs, and routine service.",
+    category: "Car Repair",
+    certified: true,
+    offer: "10% OFF",
+    isNew: false,
+    contactPerson: "John Doe",
+    contactNumber: "+91 98765 43210",
     images: [
       "https://images.unsplash.com/photo-1518173946682-0f53d1090c2a?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80",
@@ -32,6 +38,12 @@ const mechanics = [
     address: "456 Service Drive, Motor Town",
     description:
       "Full-service auto care with transmission specialists and premium customer support.",
+    category: "Full-Service",
+    certified: true,
+    offer: "15% OFF",
+    isNew: true,
+    contactPerson: "Sarah Gupta",
+    contactNumber: "+91 98765 43211",
     images: [
       "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80",
@@ -51,6 +63,12 @@ const mechanics = [
     address: "789 Repair Road, Gear District",
     description:
       "Reliable auto shop specializing in electrical repairs, AC service, and tires.",
+    category: "Auto Electrical",
+    certified: false,
+    offer: "Free inspection",
+    isNew: false,
+    contactPerson: "Mike Sharma",
+    contactNumber: "+91 98765 43212",
     images: [
       "https://images.unsplash.com/photo-1511456131392-5b363df8e614?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80",
@@ -70,6 +88,12 @@ const mechanics = [
     address: "MEERA AUTOMOBILE & SERVICE CARE, Indore, Madhya Pradesh",
     description:
       "Premium workshop with modern equipment, trusted technicians, and transparent pricing.",
+    category: "Car Service",
+    certified: true,
+    offer: "20% OFF",
+    isNew: false,
+    contactPerson: "Meera",
+    contactNumber: "+91 98765 43213",
     googleMapsUrl: "https://maps.app.goo.gl/7Ls2NgPtv6rzLPr88",
     images: [
       "https://images.unsplash.com/photo-1511919884226-0e2624d74f99?auto=format&fit=crop&w=900&q=80",
@@ -92,6 +116,12 @@ const mechanics = [
     address: "Bikes and Bolts, Indore, Madhya Pradesh",
     description:
       "Trusted bike repair shop offering quick diagnostics, parts, and service for daily commuters.",
+    category: "Bike Repair",
+    certified: false,
+    offer: "Pickup service",
+    isNew: true,
+    contactPerson: "Ravi",
+    contactNumber: "+91 98765 43214",
     googleMapsUrl: "https://maps.app.goo.gl/3TTFgeSbvQiCccEX7",
     images: [
       "https://images.unsplash.com/photo-1512872016327-7cca0aa5092a?auto=format&fit=crop&w=900&q=80",

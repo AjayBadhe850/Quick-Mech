@@ -5,7 +5,7 @@
   background: linear-gradient(135deg, #f8f9fa 0%, #f0f0f0 100%);
 }
 
-/* Header */
+
 .referral-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -25,7 +25,7 @@
   opacity: 0.9;
 }
 
-/* Main Content */
+
 .referral-main {
   flex: 1;
   max-width: 1000px;
@@ -46,7 +46,7 @@ section h3 {
   text-align: center;
 }
 
-/* Hero Section */
+
 .referral-hero {
   background: white;
   border-radius: 12px;
@@ -96,7 +96,7 @@ section h3 {
   flex-shrink: 0;
 }
 
-/* Referral Code Section */
+
 .referral-code-section {
   background: white;
   border-radius: 12px;
@@ -155,7 +155,7 @@ section h3 {
   margin-top: 12px;
 }
 
-/* Stats Section */
+
 .referral-stats {
   background: white;
   border-radius: 12px;
@@ -200,7 +200,7 @@ section h3 {
   font-weight: 500;
 }
 
-/* How It Works */
+
 .how-it-works {
   background: white;
   border-radius: 12px;
@@ -254,7 +254,7 @@ section h3 {
   line-height: 1.6;
 }
 
-/* Referral History */
+
 .referral-history {
   background: white;
   border-radius: 12px;
@@ -316,7 +316,7 @@ section h3 {
   color: #856404;
 }
 
-/* CTA Section */
+
 .referral-cta {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -355,7 +355,7 @@ section h3 {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .referral-header-content h1 {
     font-size: 28px;
