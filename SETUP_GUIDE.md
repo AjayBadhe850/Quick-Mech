@@ -138,6 +138,7 @@ await admin.auth().sendSignInLinkToEmail(email, {
 - **Frontend URL:** `http://localhost:3000` (React Dev Server)
 - **Backend URL:** `http://localhost:5000` (Express API)
 - **API Endpoints:** `http://localhost:5000/api`
+- **GitHub Pages Demo:** `https://AjayBadhe850.github.io/Quick-Mech`
 
 ### Production Build
 ```bash

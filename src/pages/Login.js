@@ -16,7 +16,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const API_BASE_URL =
-    process.env.REACT_APP_API_URL || "http://localhost:5001";
+    process.env.REACT_APP_API_URL || "http://localhost:5000";
   const displayName = username.trim() || "User";
   const ADMIN_USERNAME = "Ajay_Badhe";
   const ADMIN_PASSWORD_OR_OTP = "7396230359";

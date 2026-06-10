@@ -2,6 +2,11 @@
 
 A modern React application connecting users to mechanics fast. This full-featured platform provides a complete user experience from login to service booking and referral rewards.
 
+## Live Demo
+
+- Frontend: https://AjayBadhe850.github.io/Quick-Mech
+- Note: Backend API must be hosted separately and configured via `REACT_APP_API_URL` for full functionality.
+
 ## 🌟 Features
 
 ### 1. **Login & Authentication**

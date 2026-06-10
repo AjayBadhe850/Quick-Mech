@@ -2,6 +2,7 @@
   "name": "quickmech",
   "version": "1.0.0",
   "description": "QuickMech - Connect to Mechanics Fast",
+  "homepage": "https://AjayBadhe850.github.io/Quick-Mech",
   "private": true,
   "dependencies": {
     "body-parser": "^1.20.4",

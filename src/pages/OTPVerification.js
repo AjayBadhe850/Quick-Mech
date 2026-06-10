@@ -11,7 +11,7 @@ const OTPVerification = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     if (location.state?.mobileNumber) {
