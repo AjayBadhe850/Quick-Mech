@@ -6,7 +6,7 @@
 
 **Terminal 1 - Start the Backend Server:**
 ```bash
-cd /Users/madisettygeethharshinsai/Desktop/QuickMech
+cd /Users/Ajay badhe/Desktop/QuickMech
 npm run server
 ```
 
@@ -18,7 +18,7 @@ Expected output:
 
 **Terminal 2 - Start the React Frontend:**
 ```bash
-cd /Users/madisettygeethharshinsai/Desktop/QuickMech
+cd /Users/Ajay badhe/Desktop/QuickMech
 npm start
 ```
 

@@ -60,7 +60,7 @@ QuickMech/
 
 1. **Navigate to project directory**
    ```bash
-   cd /Users/madisettygeethharshinsai/Desktop/QuickMech
+   cd /Users/Ajay badhe/Desktop/QuickMech
    ```
 
 2. **Install dependencies** (if not already installed)
