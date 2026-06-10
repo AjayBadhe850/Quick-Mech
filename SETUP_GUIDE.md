@@ -22,7 +22,9 @@ cd /Users/Ajay badhe/Desktop/QuickMech
 npm start
 ```
 
-The app will open at `http://localhost:3000`
+**Frontend Link:** `http://localhost:3000` (React development server)
+
+✅ **API Communication:** Frontend automatically connects to backend at `http://localhost:5000/api`
 
 ---
 
@@ -126,6 +128,60 @@ await admin.auth().sendSignInLinkToEmail(email, {
   url: `${appUrl}/verify?otp=${otp}`,
   handleCodeInApp: true
 });
+```
+
+---
+
+## 🌐 Frontend Build & Deployment
+
+### Development Links
+- **Frontend URL:** `http://localhost:3000` (React Dev Server)
+- **Backend URL:** `http://localhost:5000` (Express API)
+- **API Endpoints:** `http://localhost:5000/api`
+
+### Production Build
+```bash
+# Build the React frontend
+npm run build
+
+# This creates an optimized build/ folder
+```
+
+### Deployment Options
+
+#### Option 1: Deploy Backend Only (Recommended)
+Backend server automatically serves the React build folder:
+```bash
+# Build frontend
+npm run build
+
+# Start backend (serves both API + frontend)
+npm run server
+
+# Access at: http://localhost:5000
+```
+
+#### Option 2: Vercel (Frontend Only)
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy frontend
+vercel
+
+# Update .env to point to backend URL
+REACT_APP_API_URL=https://your-backend-api.com
+```
+
+#### Option 3: Heroku (Backend)
+```bash
+# Create Heroku app
+heroku create your-app-name
+
+# Deploy
+git push heroku main
+
+# Access at: https://your-app-name.herokuapp.com
 ```
 
 ---

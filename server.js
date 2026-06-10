@@ -184,12 +184,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running' });
 });
 
-app.get("/", (req, res) => {
-  res.send("QuickMech Backend Alive 🔥");
+// Serve static frontend files (for production build)
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Fallback to React app for SPA routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-
-const PORT = process.env.BACKEND_PORT || 5001;
+const PORT = process.env.BACKEND_PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`\n✅ QuickMech Backend Server running on http://localhost:${PORT}`);
