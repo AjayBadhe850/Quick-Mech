@@ -5,7 +5,7 @@ import "./OTPVerification.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [contactValue, setContactValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -21,7 +21,11 @@ const Login = () => {
   const ADMIN_USERNAME = "Ajay_Badhe";
   const ADMIN_PASSWORD_OR_OTP = "7396230359";
 
-  
+  const isValidContact = (value) => {
+    const trimmedValue = value.trim();
+    return /^\d{10}$/.test(trimmedValue) || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedValue);
+  };
+
   const handleGetOTP = async (e) => {
     e.preventDefault();
     setError("");
@@ -32,7 +36,7 @@ const Login = () => {
       return;
     }
 
-    if (username.trim() === ADMIN_USERNAME && mobileNumber === ADMIN_PASSWORD_OR_OTP) {
+    if (username.trim() === ADMIN_USERNAME && contactValue === ADMIN_PASSWORD_OR_OTP) {
       localStorage.setItem(
         'user',
         JSON.stringify({
@@ -45,8 +49,8 @@ const Login = () => {
       return;
     }
 
-    if (!/^\d{10}$/.test(mobileNumber)) {
-      setError("Please enter a valid 10-digit mobile number");
+    if (!isValidContact(contactValue)) {
+      setError("Please enter a valid 10-digit mobile number or email address");
       return;
     }
 
@@ -57,13 +61,13 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, mobileNumber }),
+        body: JSON.stringify({ username, contactValue }),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setSuccessMessage(`OTP sent to ${mobileNumber}`);
+        setSuccessMessage(`OTP sent to ${contactValue}`);
         setIsFlipped(true);
         setAttemptsRemaining(5);
         setOtp(['', '', '', '', '', '']);
@@ -80,10 +84,7 @@ const Login = () => {
   };
 
   const handleMobileChange = (e) => {
-    const value = e.target.value;
-    if (/^\d{0,10}$/.test(value)) {
-      setMobileNumber(value);
-    }
+    setContactValue(e.target.value);
   };
 
   const handleOtpChange = (e, index) => {
@@ -125,7 +126,7 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          mobileNumber,
+          contactValue,
           otp: otpCode,
         }),
       });
@@ -135,7 +136,7 @@ const Login = () => {
       if (data.success) {
         const userData = {
           username: data.username || username,
-          mobileNumber: data.mobileNumber || mobileNumber,
+          mobileNumber: data.mobileNumber || contactValue,
           referralCode: data.user?.referralCode || '',
         };
 
@@ -183,7 +184,7 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mobileNumber }),
+        body: JSON.stringify({ contactValue }),
       });
 
       const data = await response.json();
@@ -250,14 +251,13 @@ const Login = () => {
             </div>
 
             <div className="form-group">
-              <label>Mobile Number</label>
+              <label>Mobile Number or Email Address</label>
               <input
-                type="tel"
-                placeholder="Enter 10-digit mobile number"
-                value={mobileNumber}
+                type="text"
+                placeholder="Enter mobile number or email address"
+                value={contactValue}
                 onChange={handleMobileChange}
-                maxLength="10"
-                inputMode="numeric"
+                autoComplete="email"
                 required
               />
             </div>
@@ -271,7 +271,7 @@ const Login = () => {
                 <div className="otp-form-wrapper">
                   <h2 className="otp-title">Verify OTP</h2>
                   <p className="otp-subtitle">
-                    Enter the 6-digit code sent to {mobileNumber}
+                    Enter the 6-digit code sent to {contactValue}
                   </p>
 
                   {attemptsRemaining <= 2 && attemptsRemaining > 0 && (

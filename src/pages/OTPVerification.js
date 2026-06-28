@@ -7,15 +7,15 @@ const OTPVerification = () => {
   const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState('');
   const [attemptsRemaining, setAttemptsRemaining] = useState(5);
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [contactValue, setContactValue] = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
   const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
-    if (location.state?.mobileNumber) {
-      setMobileNumber(location.state.mobileNumber);
+    if (location.state?.mobileNumber || location.state?.contactValue) {
+      setContactValue(location.state.contactValue || location.state.mobileNumber);
     } else {
       navigate('/');
     }
@@ -60,7 +60,7 @@ const OTPVerification = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          mobileNumber,
+          contactValue,
           otp: otpCode
         }),
       });
@@ -106,7 +106,7 @@ const OTPVerification = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ mobileNumber }),
+        body: JSON.stringify({ contactValue }),
       });
 
       const data = await response.json();
@@ -131,7 +131,7 @@ const OTPVerification = () => {
       <div className="otp-card">
         <h2 className="otp-title">Verify OTP</h2>
         <p className="otp-subtitle">
-          Enter the 6-digit code sent to {mobileNumber}
+          Enter the 6-digit code sent to {contactValue}
         </p>
 
         {error && <div className="alert alert-error">{error}</div>}
