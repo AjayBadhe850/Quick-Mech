@@ -57,8 +57,30 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/services', serviceRoutes);
 app.use('/api/vehicles', vehicleRoutes);
 
-// Direct alias for backward-compatible root `/api/send-otp`, `/api/verify-otp`, `/api/resend-otp`
-app.use('/api', authRoutes);
+// Root & API welcome endpoints
+const rootInfo = (req, res) => {
+  res.json({
+    success: true,
+    name: 'QuickMech REST API',
+    version: '1.0.0',
+    status: 'online',
+    endpoints: {
+      health: '/api/health',
+      mechanics: '/api/mechanics',
+      nearbyMechanics: '/api/mechanics/nearby?lat=12.9716&lng=77.5946',
+      auth: '/api/auth',
+      sendOtp: 'POST /api/auth/send-otp',
+      verifyOtp: 'POST /api/auth/verify-otp',
+      bookings: '/api/bookings',
+      reviews: '/api/reviews',
+      services: '/api/services',
+      payments: '/api/payments'
+    }
+  });
+};
+
+app.get('/', rootInfo);
+app.get('/api', rootInfo);
 
 // Catch 404
 app.use(notFoundHandler);
