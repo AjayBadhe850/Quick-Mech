@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+  MECHANIC
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id            Int         @id @default(autoincrement())
+  email         String?     @unique
+  mobileNumber  String?     @unique
+  username      String
+  role          Role        @default(USER)
+  referralCode  String?     @unique
+  referredBy    String?
+  walletBalance Float       @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  vehicles      Vehicle[]
+  bookings      Booking[]
+  reviews       Review[]
+  payments      Payment[]
+
+  @@index([email])
+  @@index([mobileNumber])
+}
+
+model OtpVerification {
+  id          Int      @id @default(autoincrement())
+  contact     String
+  otpHash     String
+  expiresAt   DateTime
+  attempts    Int      @default(0)
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([contact])
+}
+
+model Mechanic {
+  id            Int       @id @default(autoincrement())
+  name          String
+  rating        Float     @default(4.5)
+  reviewsCount  Int       @default(0)
+  category      String    @default("General Repair")
+  priceRange    String?   @default("₹200 - ₹1500")
+  featured      Boolean   @default(false)
+  status        String    @default("Active")
+  availability  String    @default("Available now")
+  openingHours  String?   @default("9:00 AM - 9:00 PM")
+  image         String?   @default("🔧")
+  lat           Float
+  lng           Float
+  address       String
+  description   String?
+  certified     Boolean   @default(false)
+  offer         String?
+  isNew         Boolean   @default(false)
+  contactPerson String?
+  contactNumber String?
+  googleMapsUrl String?
+  images        Json?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  services      Service[]
+  bookings      Booking[]
+  reviews       Review[]
+  payments      Payment[]
+
+  @@index([lat, lng])
+  @@index([category])
+}
+
+model Service {
+  id          Int       @id @default(autoincrement())
+  mechanicId  Int
+  name        String
+  price       Float?
+  duration    Int?
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  mechanic    Mechanic  @relation(fields: [mechanicId], references: [id], onDelete: Cascade)
+  bookings    Booking[]
+
+  @@index([mechanicId])
+}
+
+model Vehicle {
+  id           Int       @id @default(autoincrement())
+  userId       Int
+  make         String
+  model        String
+  year         Int?
+  licensePlate String?
+  type         String    @default("Car")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bookings     Booking[]
+
+  @@index([userId])
+}
+
+model Booking {
+  id            Int           @id @default(autoincrement())
+  userId        Int?
+  userMobile    String?
+  username      String?
+  mechanicId    Int
+  vehicleId     Int?
+  serviceId     Int?
+  bookingDate   String
+  bookingTime   String
+  amount        Float         @default(499)
+  status        BookingStatus @default(PENDING)
+  notes         String?
+  paymentMethod String?       @default("upi")
+  paymentStatus String?       @default("pending")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  user          User?         @relation(fields: [userId], references: [id], onDelete: SetNull)
+  mechanic      Mechanic      @relation(fields: [mechanicId], references: [id], onDelete: Cascade)
+  vehicle       Vehicle?      @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  service       Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  payments      Payment[]
+
+  @@index([userId])
+  @@index([mechanicId])
+}
+
+model Review {
+  id         Int       @id @default(autoincrement())
+  userId     Int?
+  username   String?
+  mechanicId Int
+  rating     Float
+  comment    String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user       User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  mechanic   Mechanic  @relation(fields: [mechanicId], references: [id], onDelete: Cascade)
+
+  @@index([mechanicId])
+}
+
+model Payment {
+  id           Int       @id @default(autoincrement())
+  userId       Int?
+  userMobile   String?
+  username     String?
+  mechanicId   Int?
+  bookingId    Int?
+  amount       Float
+  status       String    @default("completed")
+  method       String    @default("upi")
+  notes        String?
+  createdAt    DateTime  @default(now())
+
+  user         User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  mechanic     Mechanic? @relation(fields: [mechanicId], references: [id], onDelete: SetNull)
+  booking      Booking?  @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  @@index([userMobile])
+  @@index([mechanicId])
+}

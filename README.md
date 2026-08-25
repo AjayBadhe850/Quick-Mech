@@ -1,183 +1,311 @@
-# QuickMech - Mechanic Near You
+# Quick-Mech – Vehicle Service Platform
 
-A modern React application connecting users to mechanics fast. This full-featured platform provides a complete user experience from login to service booking and referral rewards.
+**Quick-Mech** is a modern, full-stack vehicle assistance platform that connects users in need of emergency roadside help, maintenance, and vehicle repair services with certified mechanics near their location in real-time.
 
-## Live Demo
+---
 
-- Frontend: https://AjayBadhe850.github.io/Quick-Mech
-- Note: Backend API must be hosted separately and configured via `REACT_APP_API_URL` for full functionality.
+## 🌟 Overview
 
-## 🌟 Features
+Whether you are stranded on the highway with a flat tire or scheduling an engine tune-up in town, Quick-Mech bridges the gap between vehicle owners and repair specialists with geolocation discovery, distance estimation, cryptographic OTP authentication, transparent service listings, and booking management.
 
-### 1. **Login & Authentication**
-   - Clean two-section layout with branding and messaging
-   - Username and mobile number input
-   - OTP-based authentication flow
-   - Responsive design for all devices
+---
 
-### 2. **OTP Verification**
-   - 6-digit OTP input with auto-focus
-   - Real-time validation
-   - Resend OTP option
-   - Professional card-based UI
+## 🚀 Features
 
-### 3. **Dashboard**
-   - Browse mechanics near your location
-   - Mechanic profiles with ratings and reviews
-   - Service listings for each mechanic
-   - Quick action buttons for tracking and payments
-   - Responsive grid layout
+- **Email OTP Authentication**: Single-use, cryptographically secure 6-digit OTP delivery via [Resend](https://resend.com), with 5-minute TTL, attempt throttling, and JWT session issuing.
+- **Location-Based Discovery**: Live user coordinates fetching via browser Geolocation API with reverse geocoding via OpenStreetMap Nominatim.
+- **Nearby Mechanics Engine**: Calculates real-time distance using the Haversine formula and driving duration routes via OSRM.
+- **Mechanic Profiles & Services**: Comprehensive workshop details, certified badges, promotional offers, operating hours, ratings, customer reviews, and photo galleries.
+- **Service Booking & UPI Payments**: End-to-end booking flow with interactive dynamic UPI QR codes and instant status tracking.
+- **Referral Program**: Unique referral codes for users to earn rewards and track referral milestones.
+- **Comprehensive Admin Control Panel**: Dedicated management dashboard to manage workshops, upload shop photos, configure platform promotions, and inspect active bookings.
 
-### 4. **Referral Program**
-   - Share unique referral code
-   - Track referrals and earnings
-   - View referral history
-   - Earn ₹200 per successful referral
-   - One-click copy referral code
+---
+
+## 🏗️ Architecture
+
+```text
+                    USER
+                      │
+                      ▼
+             Netlify Frontend
+            React 18 + Vite (SPA)
+                      │
+                   HTTPS REST
+                      │
+                      ▼
+              Railway Backend
+            Node.js + Express.js
+         (Helmet, Rate Limit, Zod)
+                      │
+                 Prisma ORM
+                      │
+                      ▼
+             Railway PostgreSQL
+
+External Services:
+    ├─ Resend          ──> Transactional OTP Emails
+    ├─ Geolocation/OSRM──> Driving distance & duration
+    └─ OpenStreetMap   ──> Reverse geocoding
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework**: React 18
+- **Build Tool**: Vite 5
+- **Routing**: React Router DOM (v6)
+- **Styling**: Vanilla CSS3 (Custom responsive layouts, CSS Grid, Flexbox, glassmorphism, animations)
+- **API Client**: Centralized fetch wrapper (`frontend/src/services/api.js`) with JWT interceptors
+
+### Backend
+- **Runtime**: Node.js (>= 18)
+- **Framework**: Express.js
+- **Validation**: Zod
+- **Authentication**: JWT (JSON Web Tokens) + SHA-256 OTP hashing
+- **Email Delivery**: Resend SDK
+- **Security**: Helmet, CORS, Express-Rate-Limit
+
+### Database & ORM
+- **Database**: PostgreSQL (Railway)
+- **ORM**: Prisma ORM with relational schema and automated migrations
+
+---
 
 ## 📁 Project Structure
 
-```
-QuickMech/
-├── public/
-│   └── index.html
-├── src/
-│   ├── pages/
-│   │   ├── Login.js & Login.css
-│   │   ├── OTPVerification.js & OTPVerification.css
-│   │   ├── Dashboard.js & Dashboard.css
-│   │   └── Referral.js & Referral.css
-│   ├── App.js & App.css
-│   ├── index.js & index.css
-│   └── index.js
-├── package.json
+```text
+Quick-Mech/
+├── frontend/
+│   ├── public/
+│   │   └── _redirects              # Netlify SPA redirect rules
+│   ├── src/
+│   │   ├── data/
+│   │   │   └── mechanicsData.js    # Local fallback mechanic data
+│   │   ├── pages/                  # Preserved UI page components & styles
+│   │   │   ├── Admin.jsx & Admin.css
+│   │   │   ├── Booking.jsx & Booking.css
+│   │   │   ├── Dashboard.jsx & Dashboard.css
+│   │   │   ├── Login.jsx & Login.css
+│   │   │   ├── MechanicDetails.jsx & MechanicDetails.css
+│   │   │   ├── OTPVerification.jsx & OTPVerification.css
+│   │   │   ├── PaymentHistory.jsx & PaymentHistory.css
+│   │   │   ├── RatingsReviews.jsx & RatingsReviews.css
+│   │   │   ├── Referral.jsx & Referral.css
+│   │   │   └── UploadPics.jsx & UploadPics.css
+│   │   ├── services/
+│   │   │   └── api.js              # Centralized API service layer
+│   │   ├── App.jsx & App.css
+│   │   ├── main.jsx & index.css
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── package.json
+│   └── .env.example
+│
+├── backend/
+│   ├── prisma/
+│   │   ├── schema.prisma           # Prisma schema for PostgreSQL
+│   │   └── seed.js                 # Seed initial mechanics & services
+│   ├── src/
+│   │   ├── config/                 # Env validation and Prisma client
+│   │   ├── controllers/            # Request handlers
+│   │   ├── middleware/             # Auth, validation, rate limiting, error handler
+│   │   ├── routes/                 # Express REST routes
+│   │   ├── services/               # Core business logic
+│   │   ├── utils/                  # Haversine distance, response formatting
+│   │   ├── validators/             # Zod input validation schemas
+│   │   ├── app.js                  # Express app configuration
+│   │   └── server.js               # HTTP server entrypoint
+│   ├── package.json
+│   └── .env.example
+│
+├── .github/workflows/              # GitHub Actions CI build check
+├── netlify.toml                    # Netlify deployment configuration
+├── package.json                    # Root workspace runner scripts
 ├── .gitignore
 └── README.md
 ```
 
-## 🚀 Getting Started
+---
 
-### Prerequisites
-- Node.js (v14 or higher)
-- npm or yarn
+## 💻 Local Development
 
-### Installation
+### 1. Prerequisites
+- Node.js >= 18.0.0
+- npm >= 9.0.0
+- PostgreSQL database (local or cloud instance like Railway / Supabase / Neon)
 
-1. **Navigate to project directory**
-   ```bash
-   cd /Users/Ajay badhe/Desktop/QuickMech
-   ```
+### 2. Clone and Install
 
-2. **Install dependencies** (if not already installed)
-   ```bash
-   npm install
-   ```
+```bash
+git clone https://github.com/AjayBadhe850/Quick-Mech.git
+cd Quick-Mech
 
-3. **Start the development server**
-   ```bash
-   npm start
-   ```
-
-4. **Open in browser**
-   - The app will automatically open at `http://localhost:3000`
-
-## 🎨 UI/UX Highlights
-
-- **Modern Design**: Clean, professional interface with gradient backgrounds
-- **Smooth Animations**: Transitions and hover effects throughout
-- **Responsive Layout**: Works perfectly on desktop, tablet, and mobile
-- **Intuitive Navigation**: Easy flow between pages
-- **Color Scheme**: 
-  - Primary: Purple gradient (#667eea to #764ba2)
-  - Secondary: Dark text on light backgrounds
-  - Accents: Green for success, Yellow for pending
-
-## 📱 Pages & Navigation Flow
-
-```
-Login Page
-    ↓
-OTP Verification
-    ↓
-Dashboard (Home)
-    ├→ Referral Program
-    └→ Track Mechanic / Payment History / Ratings
+# Install backend and frontend dependencies
+npm run install:all
 ```
 
-## 🔄 User Flow
+### 3. Configure Environment Variables
 
-1. **Login**: Enter username and mobile number → Click "Get OTP"
-2. **Verify**: Enter 6-digit OTP → System verifies
-3. **Dashboard**: View available mechanics near you
-4. **Referral**: Share code and earn rewards
-5. **Logout**: Return to login page
+**Backend (`backend/.env`):**
+```bash
+cp backend/.env.example backend/.env
+```
+Fill in your database URL and Resend API key.
 
-## 🛠 Technologies Used
+**Frontend (`frontend/.env`):**
+```bash
+cp frontend/.env.example frontend/.env
+```
+Default `VITE_API_URL=http://localhost:5000` is ready for local development.
 
-- **React 18**: Frontend framework
-- **CSS3**: Styling with Flexbox and Grid
-- **React Hooks**: State management (useState)
-- **Responsive Design**: Mobile-first approach
+### 4. Database Setup & Seeding
 
-## 📈 Features to Add (Future)
+```bash
+# Generate Prisma client
+npm run prisma:generate
 
-- Backend API integration
-- Real-time location tracking
-- Payment gateway integration
-- Live chat support
-- Service history
-- Advanced search & filters
-- Push notifications
-- Machine learning for mechanic recommendations
+# Push schema to database (or run migrations)
+cd backend && npx prisma db push
 
-## 🎯 Development Commands
+# Seed initial mechanics, services, and sample data
+npm run prisma:seed
+```
 
-- `npm start` - Start development server
-- `npm build` - Create production build
-- `npm test` - Run tests
-- `npm eject` - Eject from Create React App (irreversible)
+### 5. Run the Application
 
-## 📄 Component Details
+```bash
+# Run both Backend (port 5000) and Frontend (port 5173) concurrently:
+npm run dev
+```
 
-### Login Component
-- Two-section split layout
-- Responsive form with validation
-- OTP request functionality
-- Mobile number formatting ready
-
-### OTPVerification Component
-- Six-digit OTP input fields
-- Auto-focus navigation between inputs
-- Disabled submit until OTP complete
-- Resend functionality
-
-### Dashboard Component
-- Mechanic cards with ratings
-- Service tags for quick scanning
-- Availability status display
-- Quick action buttons for different features
-- Welcome message with user name
-
-### Referral Component
-- Unique referral code display
-- Copy-to-clipboard functionality
-- Referral statistics cards
-- How-it-works section with 4 steps
-- Referral history table
-- CTA button for sharing
-
-## 💡 Tips
-
-- Modify colors in CSS files to match your brand
-- Update mechanic data in Dashboard.js for dynamic content
-- Add API endpoints in components for real backend
-- Customize referral rewards in Referral.js
-- Add images and real backgrounds to enhance visuals
-
-## 📞 Support
-
-For issues or questions about the application, check the component files for inline comments and documentation.
+- **Frontend**: [http://localhost:5173](http://localhost:5173)
+- **Backend API**: [http://localhost:5000/api](http://localhost:5000/api)
+- **Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
 ---
 
-**Built with ❤️ using React**
+## 🔐 Environment Variables
+
+### Backend (`backend/.env.example`)
+| Variable | Description | Example / Default |
+| :--- | :--- | :--- |
+| `NODE_ENV` | Environment mode | `development` or `production` |
+| `PORT` | API server port | `5000` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://USER:PASS@HOST:PORT/DB` |
+| `JWT_SECRET` | Secret key for signing session tokens | `<secure_random_string_32_chars>` |
+| `JWT_EXPIRES_IN` | Token lifetime | `7d` |
+| `RESEND_API_KEY` | Resend API Key for sending OTPs | `re_xxxxxxxxxxxxxxxxx` |
+| `RESEND_FROM_EMAIL` | Sender address configured in Resend | `QuickMech <onboarding@resend.dev>` |
+| `FRONTEND_URL` | Allowed CORS origins (comma-separated) | `http://localhost:5173,https://your-app.netlify.app` |
+
+### Frontend (`frontend/.env.example`)
+| Variable | Description | Example / Default |
+| :--- | :--- | :--- |
+| `VITE_API_URL` | Public base URL of the Backend API | `http://localhost:5000` (Local) / `https://your-backend.railway.app` (Prod) |
+
+---
+
+## 🗄️ Database Setup (Prisma Models)
+
+- **`User`**: Account identity, role (`USER`, `ADMIN`, `MECHANIC`), wallet balance, and referral tracking.
+- **`OtpVerification`**: Stores hashed OTPs, expiration timestamps, attempt counters, and single-use status.
+- **`Mechanic`**: Workshop details, coordinates (`lat`, `lng`), categories, ratings, contact info, and gallery images.
+- **`Service`**: Repair packages linked to specific mechanics with pricing and duration.
+- **`Vehicle`**: User-registered vehicles (Car, Bike, etc.).
+- **`Booking`**: Service reservations connecting User, Mechanic, Service, Date/Time, and Status (`PENDING`, `CONFIRMED`, `IN_PROGRESS`, `COMPLETED`, `CANCELLED`).
+- **`Review`**: Star ratings and feedback text linked to mechanics and users.
+- **`Payment`**: Transaction logs for UPI and service payments.
+
+---
+
+## 🔑 Authentication Flow
+
+```text
+1. User enters Name & Email / Mobile on Login screen.
+2. Frontend calls POST /api/auth/send-otp.
+3. Backend generates cryptographically secure 6-digit random code.
+4. Backend hashes OTP (HMAC-SHA256) and stores hash in DB with 5-min TTL.
+5. Backend sends transactional email with OTP via Resend.
+6. User enters 6 digits on the flip card.
+7. Backend verifies hash, checks expiration and max attempts (<= 5).
+8. On success, OTP is marked consumed, User is upserted, and JWT token is issued.
+9. Frontend stores JWT token and attaches 'Authorization: Bearer <token>' on API requests.
+```
+
+---
+
+## 📡 API Overview
+
+| Method | Endpoint | Description | Auth |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/health` | Service health & database connectivity check | Public |
+| `POST` | `/api/auth/send-otp` | Request 6-digit OTP code | Rate Limited |
+| `POST` | `/api/auth/verify-otp` | Verify OTP and receive JWT | Public |
+| `POST` | `/api/auth/resend-otp` | Resend OTP code | Rate Limited |
+| `GET` | `/api/auth/me` | Retrieve authenticated user profile | Required |
+| `GET` | `/api/mechanics` | List all mechanics (with filter params) | Public |
+| `GET` | `/api/mechanics/nearby` | Find mechanics near lat/lng coordinates | Public |
+| `GET` | `/api/mechanics/:id` | Get mechanic profile, services, and reviews | Public |
+| `POST` | `/api/mechanics/:id/images` | Upload shop pictures to gallery | Admin |
+| `POST` | `/api/bookings` | Create a new service booking | Optional |
+| `GET` | `/api/bookings` | Retrieve user bookings | Optional |
+| `POST` | `/api/payments` | Record completed payment | Optional |
+| `GET` | `/api/payments/:mobileNumber` | Retrieve payment history | Optional |
+| `GET` | `/api/reviews` | Retrieve mechanic reviews | Public |
+| `POST` | `/api/reviews` | Submit a customer review | Optional |
+
+---
+
+## 🚀 Netlify Deployment (Frontend)
+
+1. Connect your GitHub repository on [Netlify](https://app.netlify.com).
+2. Configure build settings:
+   - **Base directory**: `frontend`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist` (or `frontend/dist`)
+3. Set Environment Variable in Netlify Dashboard:
+   - `VITE_API_URL` = `https://your-backend-service.up.railway.app`
+4. The included `netlify.toml` and `_redirects` file will automatically handle Single Page App routing so page refreshes never return 404.
+
+---
+
+## 🚂 Railway Deployment (Backend + Database)
+
+1. Create a project in [Railway](https://railway.app).
+2. Add a **PostgreSQL** database service from Railway's template library.
+3. Add a new service from your GitHub repo and select the `backend` directory (Root Directory: `/backend`).
+4. In the Railway Service settings, add the following Environment Variables:
+   - `NODE_ENV` = `production`
+   - `PORT` = `5000`
+   - `DATABASE_URL` = `${{Postgres.DATABASE_URL}}` *(reference Railway Postgres service)*
+   - `JWT_SECRET` = `<generate-secure-jwt-secret>`
+   - `RESEND_API_KEY` = `re_xxxxxxxx`
+   - `RESEND_FROM_EMAIL` = `QuickMech <onboarding@resend.dev>` *(or your verified domain)*
+   - `FRONTEND_URL` = `https://your-app.netlify.app`
+5. Set the Start Command in Railway:
+   ```bash
+   npx prisma generate && npx prisma db push && npm start
+   ```
+
+---
+
+## 🛡️ Security Notes
+
+- **Zero Hardcoded Secrets**: All keys, credentials, and URLs are strictly accessed via environment variables.
+- **Hashed OTPs**: Plain-text OTPs are never persisted in the database.
+- **Anti-Brute Force**: Express rate limiters protect OTP generation and verification attempts.
+- **CORS Protection**: CORS headers strictly allow requests only from verified frontend origins in production.
+- **HTTP Security Headers**: Powered by `helmet` to protect against clickjacking, MIME-sniffing, and XSS.
+- **Centralized Error Redaction**: Stack traces and database internals are sanitized from production client responses.
+
+---
+
+## 🔮 Future Improvements
+
+- PostGIS integration for sub-millisecond spatial geospatial queries at scale.
+- Real-time GPS location tracking of on-the-way mechanics via WebSockets.
+- Integrated automated SMS gateway (Twilio / AWS SNS) alongside email delivery.
+- Push notifications for booking confirmations and technician arrival.
